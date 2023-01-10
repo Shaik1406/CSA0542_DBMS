@@ -1,0 +1,74 @@
+mysql> create database monitor;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use monitor;
+Database changed
+mysql> create table kite(key_no int(20),key_name varchar(30),key_size int(10));
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> desc kite;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| key_no   | int(20)     | YES  |     | NULL    |       |
+| key_name | varchar(30) | YES  |     | NULL    |       |
+| key_size | int(10)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> create table dusk(key_no int(20),dusk_size varchar(30),dusk_type varchar(30));
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> desc dusk;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| key_no    | int(20)     | YES  |     | NULL    |       |
+| dusk_size | varchar(30) | YES  |     | NULL    |       |
+| dusk_type | varchar(30) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table kite add primary key (key_no);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc kite;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| key_no   | int(20)     | NO   | PRI | 0       |       |
+| key_name | varchar(30) | YES  |     | NULL    |       |
+| key_size | int(10)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table dusk add foreign key (key_no) references kite (key_no);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc dusk;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| key_no    | int(20)     | YES  | MUL | NULL    |       |
+| dusk_size | varchar(30) | YES  |     | NULL    |       |
+| dusk_type | varchar(30) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table kite add unique(key_no);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc kite;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| key_no   | int(20)     | NO   | PRI | 0       |       |
+| key_name | varchar(30) | YES  |     | NULL    |       |
+| key_size | int(10)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql>
