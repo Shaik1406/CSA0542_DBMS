@@ -1,0 +1,94 @@
+mysql> use sse;
+Database changed
+mysql> select*from mentees;
++-----------+-------------+-------+------------+-------+---------+
+| regno     | name        | dept  | fathername | marks | subject |
++-----------+-------------+-------+------------+-------+---------+
+| 192111719 | naveenreddy | civil | ramireddy  |   100 | dbms    |
+| 192111234 | naveen      | ece   | murthi     |    98 | pdsd    |
+| 192111453 | vali        | mech  | hussain    |    99 | beee    |
++-----------+-------------+-------+------------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> create table mdept(deptid int(10),deptname varchar(20),rollno int(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into mdept values(1,"cse",192111719);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> drop table mdept;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create table mdept(deptid int(10),deptname varchar(20),rollno int(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into mdept values(1,"civil",192111719);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into mdept values(2,"ece",192111234);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into mdept values(3,"mech",192111453);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from mdept;
++--------+----------+-----------+
+| deptid | deptname | rollno    |
++--------+----------+-----------+
+|      1 | civil    | 192111719 |
+|      2 | ece      | 192111234 |
+|      3 | mech     | 192111453 |
++--------+----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select deptid,deptname from mdept,mentees where mentees.regno=mdept.rollno;
++--------+----------+
+| deptid | deptname |
++--------+----------+
+|      1 | civil    |
+|      2 | ece      |
+|      3 | mech     |
++--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select name, dept,deptid,rollno from mdept m,mentees m1 where m1.regno=m.rollno;
++-------------+-------+--------+-----------+
+| name        | dept  | deptid | rollno    |
++-------------+-------+--------+-----------+
+| naveenreddy | civil |      1 | 192111719 |
+| naveen      | ece   |      2 | 192111234 |
+| vali        | mech  |      3 | 192111453 |
++-------------+-------+--------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select name,dept,deptid,deptname,rollno from mdept,mentees where mentees.regno=mdept.rollno;
++-------------+-------+--------+----------+-----------+
+| name        | dept  | deptid | deptname | rollno    |
++-------------+-------+--------+----------+-----------+
+| naveenreddy | civil |      1 | civil    | 192111719 |
+| naveen      | ece   |      2 | ece      | 192111234 |
+| vali        | mech  |      3 | mech     | 192111453 |
++-------------+-------+--------+----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select rollno,deptname,name,subject from mdept left outer join mentees on mdept.rollno=mentees.regno;
++-----------+----------+-------------+---------+
+| rollno    | deptname | name        | subject |
++-----------+----------+-------------+---------+
+| 192111719 | civil    | naveenreddy | dbms    |
+| 192111234 | ece      | naveen      | pdsd    |
+| 192111453 | mech     | vali        | beee    |
++-----------+----------+-------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select rollno,deptname,name,subject from mdept right outer join mentees on mdept.rollno=mentees.regno;
++-----------+----------+-------------+---------+
+| rollno    | deptname | name        | subject |
++-----------+----------+-------------+---------+
+| 192111719 | civil    | naveenreddy | dbms    |
+| 192111234 | ece      | naveen      | pdsd    |
+| 192111453 | mech     | vali        | beee    |
++-----------+----------+-------------+---------+
+3 rows in set (0.00 sec)
+
+mysql>
